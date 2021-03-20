@@ -11,7 +11,7 @@ t = tiledlayout(2,2);
 t.TileSpacing = 'compact';
 t.Padding = 'compact';
 xlabel(t,'Amount of data')
-%hold on;
+
 
 %Корреляция
 nexttile
