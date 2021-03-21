@@ -11,8 +11,8 @@ int main()
         std::mt19937 random_generator(now.time_since_epoch().count());
 
 
-        do_lab_1(random_generator);
-        //do_lab_2();
+        //do_lab_1(random_generator);
+        do_lab_2(random_generator);
         return 0;
 
     }

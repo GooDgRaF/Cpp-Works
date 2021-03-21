@@ -30,7 +30,6 @@ void get_rand_Mersenne_Twister(const int N, std::vector<double> &sample, std::mt
     {
         sample.resize(N);
         std::uniform_real_distribution<double> urd(0, 1);
-
         for (auto &el : sample)
         {
             el = urd(random_generator);

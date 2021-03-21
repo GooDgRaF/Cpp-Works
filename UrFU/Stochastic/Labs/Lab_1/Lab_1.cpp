@@ -9,7 +9,8 @@
 #include <random> // для std::random_device и std::mt19937
 #include "algorithm"
 #include "../Randomize.h"
-#include "../Lab_1/Calc Expectation, Variance and Covariance.h"
+#include "../Calc Expectation, Variance and Covariance.h"
+#include "../Write_functions.h"
 
 
 void
@@ -18,16 +19,8 @@ write_data_sets(const std::vector<double> &E_set, const std::vector<double> &E_M
 void
 calc_and_write_histogram(std::vector<double> &histogram_set, std::vector<double> &sample, const std::string &path, const int N);
 
-void write_vector_in_file(const std::vector<double> &v, const std::string &path, const bool clear_up = true);
-
 
 void calc_inaccuracy(const std::vector<double> &histogram_set, std::vector<double> &inaccuracy_set);
-
-void write_two_vectors(const std::string &path, const std::vector<double> &data_set, const std::vector<double> &N_set)
-    {
-        write_vector_in_file(N_set, path, true);
-        write_vector_in_file(data_set, path, false);
-    }
 
 void do_lab_1(std::mt19937 &random_generator)
     {
@@ -159,27 +152,6 @@ calc_and_write_histogram(std::vector<double> &histogram_set, std::vector<double>
             n_i = 1.0 / N * n_i;
         }
         write_vector_in_file(histogram_set, path);
-    }
-
-void write_vector_in_file(const std::vector<double> &v, const std::string &path, const bool clear_up)
-    {
-        if (clear_up)
-        {
-            std::ofstream out(path);
-            out.close();
-        }
-        std::ofstream out(path, std::ios::app);
-        if (out.fail())
-        {
-            std::cerr << "Can't reach or open file from this path: " << path << std::endl;
-            exit(-1);
-        }
-        for (auto item : v)
-        {
-            out << item << " ";
-        }
-        out << '\n';
-        out.close();
     }
 
 void
