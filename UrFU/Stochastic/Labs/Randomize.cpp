@@ -6,6 +6,7 @@
 #include <cstdlib> // для функций rand() и srand()
 #include <ctime> // для функции time()
 #include <random> // для std::random_device и std::mt19937
+#include <chrono>
 
 
 void get_rand(const int N, std::vector<double> &sample)
@@ -25,19 +26,13 @@ void get_rand(const int N, std::vector<double> &sample)
         }
     }
 
-void get_rand_Mersenne_Twister(const int N, std::vector<double> &sample)
+void get_rand_Mersenne_Twister(const int N, std::vector<double> &sample, std::mt19937 &random_generator)
     {
         sample.resize(N);
-        static bool flag_gen = false;
-        if (!flag_gen)
-        {
-            std::mt19937 gen(time(0));
-            flag_gen = true;
-        }
-        std::uniform_real_distribution<> urd(0, 1);
+        std::uniform_real_distribution<double> urd(0, 1);
 
         for (auto &el : sample)
         {
-            el = (double) (rand()) / RAND_MAX;
+            el = urd(random_generator);
         }
     }

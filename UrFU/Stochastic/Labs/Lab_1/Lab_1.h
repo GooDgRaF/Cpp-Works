@@ -5,5 +5,5 @@
 #ifndef LABA1_LAB_1_H
 #define LABA1_LAB_1_H
 
-void do_lab_1();
+void do_lab_1(std::mt19937 &random_generator);
 #endif //LABA1_LAB_1_H

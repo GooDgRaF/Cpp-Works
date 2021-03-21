@@ -5,6 +5,8 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <random>
+#include <random> // для std::random_device и std::mt19937
 #include "algorithm"
 #include "../Randomize.h"
 #include "../Lab_1/Calc Expectation, Variance and Covariance.h"
@@ -27,7 +29,7 @@ void write_two_vectors(const std::string &path, const std::vector<double> &data_
         write_vector_in_file(data_set, path, false);
     }
 
-void do_lab_1()
+void do_lab_1(std::mt19937 &random_generator)
     {
         std::vector<double> E_set, E_Mer_set, V_set, V_Mer_set, N_set,
                 Cor_set, Cor_Mer_set, Cor2N_set, Cor2N_Mer_set,
@@ -39,7 +41,7 @@ void do_lab_1()
                 std::vector<double> sample, sample_Mer;
 // 1) Выборка:
                 get_rand(N, sample);
-                get_rand_Mersenne_Twister(N, sample_Mer);
+                get_rand_Mersenne_Twister(N, sample_Mer, random_generator);
 
                 std::ostringstream N_str;
                 N_str << N; // Превратили число в поток, из которого вытащим строку потом
@@ -80,8 +82,8 @@ void do_lab_1()
 
                 get_rand(N, sample_1);
                 get_rand(N, sample_2);
-                get_rand_Mersenne_Twister(N, sample_Mer_1);
-                get_rand_Mersenne_Twister(N, sample_Mer_2);
+                get_rand_Mersenne_Twister(N, sample_Mer_1, random_generator);
+                get_rand_Mersenne_Twister(N, sample_Mer_2, random_generator);
 
                 Cor_set.push_back(calc_Correlation(sample_1, sample_2));
                 Cor_Mer_set.push_back(calc_Correlation(sample_Mer_1, sample_Mer_2));
@@ -90,7 +92,7 @@ void do_lab_1()
             {
                 std::vector<double> sample2N, sample2N_Mer, sampleOdd, sampleEven, sampleOdd_Mer, sampleEven_Mer;
                 get_rand(2 * N, sample2N);
-                get_rand_Mersenne_Twister(2 * N, sample2N_Mer);
+                get_rand_Mersenne_Twister(2 * N, sample2N_Mer, random_generator);
                 sampleEven.reserve(sample2N.size() / 2);
                 sampleOdd_Mer.reserve(sample2N.size() / 2);
                 sampleOdd.reserve(sample2N.size() / 2);
