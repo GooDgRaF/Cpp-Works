@@ -6,7 +6,6 @@
 #include <cstdlib> // для функций rand() и srand()
 #include <ctime> // для функции time()
 #include <random> // для std::random_device и std::mt19937
-#include <chrono>
 
 
 void get_rand(const int N, std::vector<double> &sample)

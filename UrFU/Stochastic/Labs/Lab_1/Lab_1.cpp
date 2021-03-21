@@ -14,7 +14,7 @@
 
 
 void
-write_data_sets(const std::vector<double> &E_set, const std::vector<double> &E_Mer_set, const std::vector<double> &V_set, const std::vector<double> &V_Mer_set, const std::vector<double> &N_set, const std::vector<double> &Cor_set, const std::vector<double> &Cor_Mer_set, const std::vector<double> &Cor2N_set, const std::vector<double> &Cor2N_Mer_set, const std::vector<double> &inaccuracy_set, const std::vector<double> &inaccuracy_Mer_set);
+write_data_sets(const std::vector<double> &E_set, const std::vector<double> &E_Mer_set, const std::vector<double> &V_set, const std::vector<double> &V_Mer_set, const std::vector<int> &N_set, const std::vector<double> &Cor_set, const std::vector<double> &Cor_Mer_set, const std::vector<double> &Cor2N_set, const std::vector<double> &Cor2N_Mer_set, const std::vector<double> &inaccuracy_set, const std::vector<double> &inaccuracy_Mer_set);
 
 void
 calc_and_write_histogram(std::vector<double> &histogram_set, std::vector<double> &sample, const std::string &path, const int N);
@@ -24,9 +24,10 @@ void calc_inaccuracy(const std::vector<double> &histogram_set, std::vector<doubl
 
 void do_lab_1(std::mt19937 &random_generator)
     {
-        std::vector<double> E_set, E_Mer_set, V_set, V_Mer_set, N_set,
+        std::vector<double> E_set, E_Mer_set, V_set, V_Mer_set,
                 Cor_set, Cor_Mer_set, Cor2N_set, Cor2N_Mer_set,
                 histogram_set, inaccuracy_set, histogram_Mer_set, inaccuracy_Mer_set;
+        std::vector<int> N_set;
         for (int N = 10; N < 10e6; N *= 10)
         {
             N_set.push_back(N);
@@ -155,7 +156,7 @@ calc_and_write_histogram(std::vector<double> &histogram_set, std::vector<double>
     }
 
 void
-write_data_sets(const std::vector<double> &E_set, const std::vector<double> &E_Mer_set, const std::vector<double> &V_set, const std::vector<double> &V_Mer_set, const std::vector<double> &N_set, const std::vector<double> &Cor_set, const std::vector<double> &Cor_Mer_set, const std::vector<double> &Cor2N_set, const std::vector<double> &Cor2N_Mer_set, const std::vector<double> &inaccuracy_set, const std::vector<double> &inaccuracy_Mer_set)
+write_data_sets(const std::vector<double> &E_set, const std::vector<double> &E_Mer_set, const std::vector<double> &V_set, const std::vector<double> &V_Mer_set, const std::vector<int> &N_set, const std::vector<double> &Cor_set, const std::vector<double> &Cor_Mer_set, const std::vector<double> &Cor2N_set, const std::vector<double> &Cor2N_Mer_set, const std::vector<double> &inaccuracy_set, const std::vector<double> &inaccuracy_Mer_set)
     {
         std::string path = "../Lab_1/data/E.txt";
         write_two_vectors(path, E_set, N_set);
