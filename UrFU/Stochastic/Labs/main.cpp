@@ -3,6 +3,7 @@
 #include <random>
 #include "Lab_1/Lab_1.h"
 #include "Lab_2/Lab_2.h"
+#include "Lab_3/Lab_3.h"
 
 
 int main()
@@ -12,8 +13,11 @@ int main()
 
 
         //do_lab_1(random_generator);
-        do_lab_2(random_generator);
+        //do_lab_2(random_generator);
+        do_lab_3(random_generator);
         return 0;
 
     }
+
+
 
