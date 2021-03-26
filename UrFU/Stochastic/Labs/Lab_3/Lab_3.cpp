@@ -19,7 +19,7 @@ void do_lab_3(std::mt19937 &engine)
 //Выборки:
         {
             std::vector<int> N_set;
-            for (int N = 10e3; N < 10e6; N *= 10)
+            for (int N = 10e1; N < 10e4; N *= 10)
             {
                 N_set.push_back(N);
                 {
@@ -47,6 +47,8 @@ void do_lab_3(std::mt19937 &engine)
                     write_vector_in_file(sample_normal, path_out);
                 }
             }
+            std::string path_out = "../Lab_3/data/Source/N_set.txt";
+            write_vector_in_file(N_set, path_out);
         }
 
     }
