@@ -5,6 +5,7 @@ N_set = importdata('../data/Source/N_set.txt');
 inaccuracy = zeros(1,length(N_set));
 
 for i = 1:length(N_set)
+    figure(2);
     S = importdata('../data/Source/'+ name_of_method_string + N + '.txt');
     h = histogram(S,'Normalization','pdf');
     sigma = mean_square_deviation(h);
@@ -13,12 +14,13 @@ for i = 1:length(N_set)
     N = N + "0";
 end
 
-semilogx(N_set, inaccuracy, 'Marker', 'o');
 hold on;
+ax = gca;
+ax.XScale = 'log';
+ax.YScale = 'log';
+plot(N_set, inaccuracy, 'Marker', 'o');
+
 title(title_string + ' inaccuracy')
-x = [100 N_set(end)];
-y = [0 0];
-line(x,y,'Color','red','LineStyle','--')
 hold off;
 end
 
