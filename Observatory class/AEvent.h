@@ -6,21 +6,22 @@
 #define OBSERVATORY_CLASS_AEVENT_H
 #include "ADistance.h"
 
+using ATime = long int;
 
 class AEvent
 {
 public:
-  long int get_registration_start_time() const;
-  long int get_duration() const;
+  ATime get_registration_start_time() const;
+  ATime get_duration() const;
 
   virtual ADistance get_distance() const = 0;
   virtual ADistance get_altitude() const = 0;
 
 protected:
-    AEvent(long int reg_st, long int duration);
+    AEvent(ATime reg_st, ATime duration);
 
-    long int m_registration_start_time; // milliseconds
-    long int m_duration; // milliseconds
+    ATime m_registration_start_time = 0; // milliseconds
+    ATime m_duration = 0; // milliseconds
 };
 
 

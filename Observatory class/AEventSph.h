@@ -12,7 +12,7 @@ class AEventCart;
 class AEventSph : public AEvent
 {
 public:
-    AEventSph(long int regSt, long int duration, ADistance radius, double inclination, double azimuth);
+    AEventSph(ATime regSt, ATime duration, ADistance radius, double inclination, double azimuth);
     
     explicit operator AEventCart() const;
 
@@ -22,9 +22,9 @@ public:
     double get_azimuth() const;
 
 private:
-    ADistance m_radius;
-    double m_inclination; // [-Pi/2, Pi/2]
-    double m_azimuth; // In X-Y plane. (-Pi, Pi]
+    ADistance m_radius{0};
+    double m_inclination = 0; // [-Pi/2, Pi/2]
+    double m_azimuth = 0; // In X-Y plane. (-Pi, Pi]
 };
 
 

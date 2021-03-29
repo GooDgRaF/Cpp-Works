@@ -12,7 +12,7 @@ class AEventSph;
 class AEventCart : public AEvent
 {
 public:
-    AEventCart(long int reg_st, long int duration, ADistance x, ADistance y, ADistance z);
+    AEventCart(ATime reg_st, ATime duration, ADistance x, ADistance y, ADistance z);
 
     ADistance get_distance() const override;
     ADistance get_altitude() const final;
@@ -23,9 +23,9 @@ public:
     explicit operator AEventSph() const;
 
 private:
-    ADistance m_x;
-    ADistance m_y;
-    ADistance m_z;
+    ADistance m_x{0};
+    ADistance m_y{0};
+    ADistance m_z{0};
 };
 
 

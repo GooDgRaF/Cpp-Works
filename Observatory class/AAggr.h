@@ -19,7 +19,7 @@ public:
     void reSort();
     void reSort(bool comp(const AEvent *, const AEvent *));
 
-    std::vector<AEvent *> part_of_reg_time(const long int t1, const long int t2) const;
+    std::vector<AEvent *> part_of_reg_time(const ATime t1, const ATime t2) const;
     std::vector<AEvent *> part_of_altitude(const ADistance z1, const ADistance z2) const;
     std::vector<AEvent *> part_of_distance(const ADistance d1, const ADistance d2) const;
 

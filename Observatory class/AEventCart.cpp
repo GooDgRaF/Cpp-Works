@@ -4,7 +4,7 @@
 #include "AEventCart.h"
 #include "cmath"
 
-AEventCart::AEventCart(long int reg_st, long int duration, ADistance x, ADistance y, ADistance z)
+AEventCart::AEventCart(ATime reg_st, ATime duration, ADistance x, ADistance y, ADistance z)
         : AEvent(reg_st, duration), m_x(x), m_y(y), m_z(z)
     {
 
@@ -13,8 +13,8 @@ AEventCart::AEventCart(long int reg_st, long int duration, ADistance x, ADistanc
 AEventCart::operator AEventSph() const
     {
         ADistance radius = this->get_distance();
-        double inclination = asin((m_z / radius).getKM());
-        double azimuth = atan2(m_y.getKM(),m_x.getKM());
+        const double inclination = asin((m_z / radius).getKM());
+        const double azimuth = atan2(m_y.getKM(),m_x.getKM());
 
 
         return {m_registration_start_time, m_duration, radius, inclination, azimuth};

@@ -4,7 +4,7 @@
 #include "AEventSph.h"
 #include "cmath"
 
-AEventSph::AEventSph(long int regSt, long int duration, ADistance radius, double inclination, double azimuth)
+AEventSph::AEventSph(ATime regSt, ATime duration, ADistance radius, double inclination, double azimuth)
         : AEvent(regSt, duration), m_radius(radius), m_inclination(inclination), m_azimuth(azimuth)
     {
 

@@ -75,7 +75,7 @@ void AAggr::reSort(bool comp(const AEvent *, const AEvent *))
         std::sort(m_events_sort_by_user.begin(), m_events_sort_by_user.end(), comp);
     }
 
-std::vector<AEvent *> AAggr::part_of_reg_time(const long int t1, const long int t2) const
+std::vector<AEvent *> AAggr::part_of_reg_time(const ATime t1, const ATime t2) const
     {
         std::vector<AEvent *> res;
 
