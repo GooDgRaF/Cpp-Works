@@ -7,8 +7,10 @@
 
 
 #include <vector>
+#include <set>
 #include "AEvent.h"
 #include "AEventCart.h"
+#include "Comparators.h"
 
 class AAggr
 {
@@ -16,7 +18,6 @@ public:
     void receiveAEventCart(AEventCart &aEventCart);
     void receiveAEventSph(AEventSph &aEventSph);
 
-    void reSort();
     void reSort(bool comp(const AEvent *, const AEvent *));
 
     std::vector<AEvent *> part_of_reg_time(const ATime t1, const ATime t2) const;
@@ -28,15 +29,12 @@ public:
 
 private:
 
-    std::vector<AEvent*> m_events;
-    std::vector<AEvent*> m_events_sort_by_reg_time;
-    std::vector<AEvent*> m_events_sort_by_altitude;
-    std::vector<AEvent*> m_events_sort_by_distance;
-    std::vector<AEvent*> m_events_sort_by_user;
+    std::vector<AEvent*> m_events = {};
+    std::multiset<AEvent*, comp_reg_time> m_events_sort_by_reg_time = {};
+    std::multiset<AEvent*, comp_altitude> m_events_sort_by_altitude = {};
+    std::multiset<AEvent*, comp_distance> m_events_sort_by_distance = {};
+    std::vector<AEvent*> m_events_sort_by_user = {};
 
-    void reSort_reg_time();
-    void reSort_altitude();
-    void reSort_distance();
 };
 
 

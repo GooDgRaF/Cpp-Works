@@ -9,65 +9,20 @@ void AAggr::receiveAEventCart(AEventCart &aEventCart)
     {
         AEvent *aEvent = new AEventCart(aEventCart);
         m_events.push_back(aEvent);
-        m_events_sort_by_reg_time.push_back(aEvent);
-        m_events_sort_by_altitude.push_back(aEvent);
-        m_events_sort_by_distance.push_back(aEvent);
+        m_events_sort_by_reg_time.insert(aEvent);
+        m_events_sort_by_altitude.insert(aEvent);
+        m_events_sort_by_distance.insert(aEvent);
         m_events_sort_by_user.push_back(aEvent);
-
-        reSort();
     }
 
 void AAggr::receiveAEventSph(AEventSph &aEventSph)
     {
         AEvent *aEvent = new AEventSph(aEventSph);
         m_events.push_back(aEvent);
-        m_events_sort_by_reg_time.push_back(aEvent);
-        m_events_sort_by_altitude.push_back(aEvent);
-        m_events_sort_by_distance.push_back(aEvent);
+        m_events_sort_by_reg_time.insert(aEvent);
+        m_events_sort_by_altitude.insert(aEvent);
+        m_events_sort_by_distance.insert(aEvent);
         m_events_sort_by_user.push_back(aEvent);
-
-        reSort();
-    }
-
-void AAggr::reSort_reg_time()
-    {
-        std::sort(m_events_sort_by_reg_time.begin(), m_events_sort_by_reg_time.end(),
-                  [](const AEvent *e1, const AEvent *e2) -> bool
-                      {
-                          return e1->get_registration_start_time()
-                                 <
-                                 e2->get_registration_start_time();
-                      });
-    }
-
-void AAggr::reSort_altitude()
-    {
-        std::sort(m_events_sort_by_altitude.begin(), m_events_sort_by_altitude.end(),
-                  [](const AEvent *e1, const AEvent *e2) -> bool
-                      {
-                          return
-                                  e1->get_altitude()
-                                  <
-                                  e2->get_altitude();
-                      });
-    }
-
-void AAggr::reSort_distance()
-    {
-        std::sort(m_events_sort_by_distance.begin(), m_events_sort_by_distance.end(),
-                  [](const AEvent *e1, const AEvent *e2) -> bool
-                      {
-                          return e1->get_distance()
-                                 <
-                                 e2->get_distance();
-                      });
-    }
-
-void AAggr::reSort()
-    {
-        reSort_reg_time();
-        reSort_altitude();
-        reSort_distance();
     }
 
 void AAggr::reSort(bool comp(const AEvent *, const AEvent *))

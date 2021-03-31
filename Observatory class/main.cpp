@@ -7,6 +7,8 @@
 #include <random>
 #include <ctime>
 #include <algorithm>
+#include <set>
+#include <chrono>
 
 bool comp(const AEvent *e1, const AEvent *e2)
     { //По азимуту
@@ -29,10 +31,32 @@ bool comp(const AEvent *e1, const AEvent *e2)
 
     }
 
+struct f
+{
+    bool operator()(const int a, const int b)
+        {
+            return  a*a < b*b;
+        }
+};
+
+class Test_my_comp_for_set
+{
+public:
+    explicit Test_my_comp_for_set(int i) : m_i(i)
+        {};
+
+private:
+    int m_i;
+    std::multiset<int> m_set_int = {0, 1, -2, 9, 8, 7, -6, 5, 4, 3};
+    std::multiset<int, std::greater<>> m_set_greater = {0, 1, -2, 9, 8, 7, -6, 5, 4, 3};
+    std::multiset<int, f> m_set_myComp = {0, 1, -2, 9, 8, 7, -6, 5, 4, 3};
+};
+
 int main()
     {
 
-        std::mt19937 gen(time(0));
+        auto now = std::chrono::high_resolution_clock::now();
+        std::mt19937 gen(now.time_since_epoch().count());
         std::uniform_int_distribution<> uid(0, 100);
         std::uniform_int_distribution<> uid_time(0, 10000);
         std::uniform_int_distribution<> uid_duration(10, 500);
