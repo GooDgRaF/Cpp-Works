@@ -3,9 +3,10 @@
 //
 
 #include "Randomize.h"
-#include <cstdlib> // для функций rand() и srand()
+#include <cstdlib> // для функций rand_U() и srand()
 #include <ctime> // для функции time()
 #include <random> // для std::random_device и std::mt19937
+#include "Random_engine.h"
 
 
 void get_rand(const int N, std::vector<double> &sample)
@@ -32,5 +33,14 @@ void get_rand_Mersenne_Twister(const int N, std::vector<double> &sample, std::mt
         for (auto &el : sample)
         {
             el = urd(random_generator);
+        }
+    }
+
+void rand_U(const int N, std::vector<double> &sample)
+    {
+        sample.resize(N);
+        for (auto &el : sample)
+        {
+            el = randomEngine.get_real_uniform(0,1);
         }
     }

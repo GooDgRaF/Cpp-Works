@@ -15,6 +15,7 @@ void write_two_vectors(const std::string &path, const std::vector<double> &data_
         write_vector_in_file(N_set, path, true);
         write_vector_in_file(data_set, path, false);
     }
+
 template<typename T>
 void write_vector_in_file(const std::vector<T> &v, const std::string &path, const bool clear_up)
     {
@@ -34,5 +35,18 @@ void write_vector_in_file(const std::vector<T> &v, const std::string &path, cons
             out << std::setprecision(9) << item << " ";
         }
         out << '\n';
+        out.close();
+    }
+
+
+void write_number_in_file(const double n, const std::string &path)
+    {
+        std::ofstream out(path);
+        if (out.fail())
+        {
+            std::cerr << "Can't reach or open file from this path: " << path << std::endl;
+            exit(-1);
+        }
+        out << n;
         out.close();
     }

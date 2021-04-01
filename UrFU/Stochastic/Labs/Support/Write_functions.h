@@ -11,4 +11,7 @@ void write_vector_in_file(const std::vector<T> &v, const std::string &path, cons
 void write_two_vectors(const std::string &path, const std::vector<double> &data_set, const std::vector<int> &N_set);
 
 
+void write_number_in_file(const double n, const std::string &path);
+
+
 #endif //LABA1_WRITE_FUNCTIONS_H

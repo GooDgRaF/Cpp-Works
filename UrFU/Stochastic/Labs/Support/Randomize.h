@@ -11,4 +11,5 @@ void get_rand(const int N, std::vector<double> &sample);
 
 void get_rand_Mersenne_Twister(const int N, std::vector<double> &sample, std::mt19937 &random_generator);
 
+
 #endif //LABA1_RANDOMIZE_H
