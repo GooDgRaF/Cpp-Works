@@ -4,9 +4,9 @@
 
 #include <sstream>
 #include "Lab_3.h"
-#include "../Randomize.h"
-#include "../Write_functions.h"
-#include "../Calc Expectation, Variance and Covariance.h"
+#include "../Support/Randomize.h"
+#include "../Support/Write_functions.h"
+#include "../Support/Calc Expectation, Variance and Covariance.h"
 
 double method12(std::mt19937 &engine);
 
@@ -23,7 +23,6 @@ write_data(const std::vector<int> &N_set, const std::vector<double> &E_12_set, c
 void do_lab_3(std::mt19937 &engine)
     {
 //Выборки:
-
         std::vector<int> N_set = {};
         std::vector<double> E_12 = {}, E_BM = {}, E_normal = {}, V_12 = {}, V_BM = {}, V_normal = {};
         for (int N = 10e1; N < 10e7; N *= 10)
