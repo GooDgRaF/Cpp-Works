@@ -6,9 +6,9 @@
 #include <iostream>
 #include "Lab_2.h"
 #include "cmath"
-#include "../Randomize.h"
-#include "../Write_functions.h"
-#include "../Calc Expectation, Variance and Covariance.h"
+#include "../Support/Randomize.h"
+#include "../Support/Write_functions.h"
+#include "../Support/Calc Expectation, Variance and Covariance.h"
 
 double g(const double y);
 
