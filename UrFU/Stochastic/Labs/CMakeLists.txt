@@ -3,7 +3,7 @@ project(Laba1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(Laba1 main.cpp "Calc Expectation, Variance and Covariance.cpp"
-        "Calc Expectation, Variance and Covariance.h"
-        Randomize.cpp Randomize.h Lab_1/Lab_1.cpp Lab_1/Lab_1.h Lab_2/Lab_2.cpp Lab_2/Lab_2.h
-        Write_functions.h Write_functions.cpp Lab_3/Lab_3.cpp Lab_3/Lab_3.h)
+add_executable(Laba1 main.cpp "Support/Calc Expectation, Variance and Covariance.cpp"
+        "Support/Calc Expectation, Variance and Covariance.h"
+        Support/Randomize.cpp Support/Randomize.h Lab_1/Lab_1.cpp Lab_1/Lab_1.h Lab_2/Lab_2.cpp Lab_2/Lab_2.h
+        Support/Write_functions.h Support/Write_functions.cpp Lab_3/Lab_3.cpp Lab_3/Lab_3.h Support/Random_engine.cpp Support/Random_engine.h Lab_4/Lab_4.cpp Lab_4/Lab_4.h)
