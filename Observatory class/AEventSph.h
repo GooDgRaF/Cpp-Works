@@ -21,6 +21,8 @@ public:
     double get_inclination() const;
     double get_azimuth() const;
 
+    ~AEventSph() {std::cout << "AEventSph" << std::endl; };
+
 private:
     ADistance m_radius{0};
     double m_inclination = 0; // [-Pi/2, Pi/2]

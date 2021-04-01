@@ -5,6 +5,7 @@
 #ifndef OBSERVATORY_CLASS_AEVENT_H
 #define OBSERVATORY_CLASS_AEVENT_H
 #include "ADistance.h"
+#include "iostream"
 
 using ATime = long int;
 
@@ -16,6 +17,8 @@ public:
 
   virtual ADistance get_distance() const = 0;
   virtual ADistance get_altitude() const = 0;
+
+  virtual ~AEvent(){ std::cout << "AEvent" << std::endl; };
 
 protected:
     AEvent(ATime reg_st, ATime duration);

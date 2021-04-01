@@ -22,6 +22,8 @@ public:
 
     explicit operator AEventSph() const;
 
+    ~AEventCart(){std::cout << "AEventCart" << std::endl; };
+
 private:
     ADistance m_x{0};
     ADistance m_y{0};
