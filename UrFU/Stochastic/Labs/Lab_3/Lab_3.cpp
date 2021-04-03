@@ -6,7 +6,7 @@
 #include "Lab_3.h"
 #include "../Support/Randomize.h"
 #include "../Support/Write_functions.h"
-#include "../Support/Calc Expectation, Variance and Covariance.h"
+#include "../Support/Calc_Expectation_Variance_Covariance.h"
 
 double method12(std::mt19937 &engine);
 

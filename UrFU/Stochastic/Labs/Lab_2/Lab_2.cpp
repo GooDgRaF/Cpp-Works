@@ -8,7 +8,7 @@
 #include "cmath"
 #include "../Support/Randomize.h"
 #include "../Support/Write_functions.h"
-#include "../Support/Calc Expectation, Variance and Covariance.h"
+#include "../Support/Calc_Expectation_Variance_Covariance.h"
 
 double g(const double y);
 

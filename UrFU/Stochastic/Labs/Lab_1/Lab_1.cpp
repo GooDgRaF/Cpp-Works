@@ -8,9 +8,9 @@
 #include <random>
 #include <random> // для std::random_device и std::mt19937
 #include "algorithm"
-#include "../Randomize.h"
-#include "../Calc Expectation, Variance and Covariance.h"
-#include "../Write_functions.h"
+#include "../Support/Randomize.h"
+#include "../Support/Calc_Expectation_Variance_Covariance.h"
+#include "../Support/Write_functions.h"
 
 
 void

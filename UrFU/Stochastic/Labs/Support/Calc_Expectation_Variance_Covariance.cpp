@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <string>
 #include <cmath>
-#include "Calc Expectation, Variance and Covariance.h"
+#include "Calc_Expectation_Variance_Covariance.h"
 
 double calc_Expectation(const std::vector<double> &sample)
     {

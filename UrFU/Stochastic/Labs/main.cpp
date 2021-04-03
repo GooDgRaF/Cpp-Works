@@ -6,7 +6,7 @@
 #include "Lab_3/Lab_3.h"
 #include "Lab_4/Lab_4.h"
 #include "Support/Random_engine.h"
-#include "Support/Calc Expectation, Variance and Covariance.h"
+#include "Support/Calc_Expectation_Variance_Covariance.h"
 
 int main()
     {

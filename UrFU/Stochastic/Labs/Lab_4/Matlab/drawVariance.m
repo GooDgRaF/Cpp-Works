@@ -1,35 +1,54 @@
 function drawVariance(t)
+% a1 = 2;
+% a2 = 4;
+% a3 = 8;
+% a4 = 16;
 
-V1 = importdata("../data/V_noise_a1.txt");
-V10 = importdata("../data/V_noise_a10.txt");
-V100 = importdata("../data/V_noise_a100.txt");
+a1 = 32;
+a2 = 64;
+a3 = 128;
+a4 = 256;
+
+V_1 = importdata("../data/V_noise_a" + a1 + ".txt");
+V_2 = importdata("../data/V_noise_a" + a2 + ".txt");
+V_3 = importdata("../data/V_noise_a" + a3 + ".txt");
+V_4 = importdata("../data/V_noise_a" + a4 + ".txt");
 
 %%%%%%%%%%%%%%%%
 nexttile(t,1);
-semilogx(V1(1,:), V1(2,:), 'Marker', 'o');
+semilogx(V_1(1,:), V_1(2,:), 'Marker', 'o');
 hold on;
-x = [100 V1(1,end)];
-y = [0.5 0.5];
+x = [100 V_1(1,end)];
+y = [a1/2 a1/2];
 line(x,y,'Color','red','LineStyle','--')
-title('a = 1');
+title("a = " + a1);
 
 
 %%%%%%%%%%%%%%%%
 nexttile(t,2);
-semilogx(V10(1,:), V10(2,:), 'Marker', 'o');
+semilogx(V_2(1,:), V_2(2,:), 'Marker', 'o');
 hold on;
-x = [100 V10(1,end)];
-y = [5 5];
+x = [100 V_2(1,end)];
+y = [a2/2 a2/2];
 line(x,y,'Color','red','LineStyle','--')
-title('a = 10');
+title("a = " + a2);
 
 %%%%%%%%%%%%%%%%
 nexttile(t,3);
-semilogx(V100(1,:), V100(2,:), 'Marker', 'o');
+semilogx(V_3(1,:), V_3(2,:), 'Marker', 'o');
 hold on;
-x = [100 V100(1,end)];
-y = [50 50];
+x = [100 V_3(1,end)];
+y = [a3/2 a3/2];
 line(x,y,'Color','red','LineStyle','--')
-title('a = 100');
+title("a = " + a3);
+
+%%%%%%%%%%%%%%%%
+nexttile(t,4);
+semilogx(V_4(1,:), V_4(2,:), 'Marker', 'o');
+hold on;
+x = [100 V_4(1,end)];
+y = [a4/2 a4/2];
+line(x,y,'Color','red','LineStyle','--')
+title("a = " + a4);
 end
 

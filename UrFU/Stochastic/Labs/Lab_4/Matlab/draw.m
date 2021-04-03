@@ -4,13 +4,13 @@ close all
 
 %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
-t = tiledlayout(1,3);
+t = tiledlayout(2,2);
 t.TileSpacing = 'compact';
 t.Padding = 'compact';
 xlabel(t,'Iterations');
 title(t, 'Expectation');
 
-%drawExpectation(t);
+drawExpectation(t);
 
-drawVariance(t);
+%drawVariance(t);
 

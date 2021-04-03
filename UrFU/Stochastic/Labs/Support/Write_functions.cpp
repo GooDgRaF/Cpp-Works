@@ -2,7 +2,7 @@
 // Created by Антон on 21.03.2021.
 //
 
-#include "Calc Expectation, Variance and Covariance.h"
+#include "Calc_Expectation_Variance_Covariance.h"
 #include "algorithm"
 #include <fstream>
 #include <iostream>
@@ -30,11 +30,14 @@ void write_vector_in_file(const std::vector<T> &v, const std::string &path, cons
             std::cerr << "Can't reach or open file from this path: " << path << std::endl;
             exit(-1);
         }
-        for (auto item : v)
+        if (!(v.empty()))
         {
-            out << std::setprecision(9) << item << " ";
+            for (auto item : v)
+            {
+                out << std::setprecision(9) << item << " ";
+            }
+            out << '\n';
         }
-        out << '\n';
         out.close();
     }
 
