@@ -7,11 +7,15 @@
 #include <iostream>
 #include <cassert>
 #include <cmath>
+#include <sstream>
 #include "Lab_5.h"
+#include "../Support/Write_functions.h"
+
+#define PARAMETER_a 0.001
 
 void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
             const std::vector<std::function<double(double, std::vector<double>)>> &F,
-            const double x_init, const std::vector<double> &X_init,
+            const double t_init, const std::vector<double> &X_init,
             const double T, const double h = 0.01);
 
 std::vector<double> operator+(const std::vector<double> &a, const std::vector<double> &b)
@@ -42,44 +46,46 @@ std::vector<double> operator*(const T n, const std::vector<double> &a)
         return res;
     }
 
-double f(double x, std::vector<double> y)
+
+double g1(const double t, const std::vector<double> &v)
     {
-        return 3 * x * x * y[0] + x * x * pow(M_E, x * x * x);
+        return (v[0] - v[1] - v[0] * v[0] * v[0] / 3) / 10;
     }
 
-double g1(double x, std::vector<double> y)
+double g2(const double t, const std::vector<double> &v)
     {
-        return y[1];
+        return v[0] + PARAMETER_a;
     }
-double g2(double x, std::vector<double> y)
-    {
-        return y[2];
-    }
-double g3(double x, std::vector<double> y)
-    {
-        return -3*y[2] - 3*y[1] - y[0];
-    }
+
 void do_lab_5()
     {
         std::vector<std::vector<double>> X;
         std::vector<double> grid;
-        odeRC4(X, grid, {f}, 0, {0}, 1, 0.1);
-        std::cout << X[0][0];
+        double t_init = 0, T = 500;
+        std::vector<double> X_init = {0,0};
 
+        odeRC4(X, grid, {g1, g2}, t_init, X_init, T);
 
-        X.clear();
-        grid.clear();
+        std::ostringstream a_str;
+        a_str << PARAMETER_a;
+        std::string path = "../Lab_5/data/FitzHugh_a_"+ a_str.str() +"_.txt";
 
-        odeRC4(X,grid,{g1, g2, g3},0, {-1,2,3},1);
-        std::cout << X[0][0];
+        write_vector_in_file(std::vector<double>{}, path, true); //Почистили файл перед записью
+        for (const auto &item : X)
+        {
+            write_vector_in_file(item, path, false);
+        }
+
+//        path = "../Lab_5/data/FitzHugh_grid.txt";
+//        write_vector_in_file(grid, path);
 
     }
 
 
-/**Возвращает вектор значений (N-мерные точки) и сетку с шагом h на T**/
+/**Возвращает вектор значений (N-мерные точки) и сетку с шагом h на T */
 void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
             const std::vector<std::function<double(double, std::vector<double>)>> &F,
-            const double x_init, const std::vector<double> &X_init,
+            const double t_init, const std::vector<double> &X_init,
             const double T, const double h)
     {
         double N = T / h;
@@ -91,8 +97,10 @@ void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
         k3.reserve(X_init.size() + 1);
         k4.reserve(X_init.size() + 1);
 
-        grid.push_back(x_init);
+        grid.push_back(t_init);
         std::vector<double> X_prev = X_init;
+
+        X.push_back(X_init);
 
         for (int t = 1; t <= N; ++t)
         {
@@ -101,7 +109,7 @@ void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
             k3.clear();
             k4.clear();
 
-            grid.push_back(x_init + t * h);
+            grid.push_back(t_init + t * h);
 
             for (const auto &f : F)
             {
