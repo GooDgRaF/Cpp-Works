@@ -8,69 +8,73 @@
 #include <cassert>
 #include <cmath>
 #include <sstream>
+#include <algorithm>
 #include "Lab_5.h"
 #include "../Support/Write_functions.h"
 
-#define PARAMETER_a 0.001
+#define PARAMETER_a 0.002
 
-void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
-            const std::vector<std::function<double(double, std::vector<double>)>> &F,
-            const double t_init, const std::vector<double> &X_init,
+using namespace std;
+
+void odeRC4(vector<vector<double>> &X, vector<double> &grid,
+            const vector<function<double(double, vector<double>)>> &F,
+            const double t_init, const vector<double> &X_init,
             const double T, const double h = 0.01);
 
-std::vector<double> operator+(const std::vector<double> &a, const std::vector<double> &b)
+void
+calc_K(const vector<double> &grid, const vector<function<double(double, vector<double>)>> &F, const double h, vector<double> &k1, vector<double> &k2, vector<double> &k3, vector<double> &k4, int t, const vector<double> &X_prev);
+
+void clear_K(vector<double> &k1, vector<double> &k2, vector<double> &k3, vector<double> &k4);
+
+vector<double> operator+(const vector<double> &a, const vector<double> &b)
     {
         assert(a.size() == b.size());
 
-        std::vector<double> res;
+        vector<double> res;
         res.reserve(a.size());
 
-
-        for (int i = 0; i < a.size(); ++i)
-        {
-            res.push_back(a[i] + b[i]);
-        }
+        transform(a.begin(), a.end(), b.begin(), back_inserter(res),
+                  [](double a, double b) -> double
+                      { return a + b; });
         return res;
     }
 
 template<typename T>
-std::vector<double> operator*(const T n, const std::vector<double> &a)
+vector<double> operator*(const T n, const vector<double> &a)
     {
-        std::vector<double> res;
+        vector<double> res;
         res.reserve(a.size());
 
-        for (double el : a)
-        {
-            res.push_back(n * el);
-        }
+        transform(a.begin(), a.end(), back_inserter(res), [n](double el) -> double
+            { return n * el; });
         return res;
     }
 
 
-double g1(const double t, const std::vector<double> &v)
+double g1(const double t, const vector<double> &v)
     {
         return (v[0] - v[1] - v[0] * v[0] * v[0] / 3) / 10;
     }
 
-double g2(const double t, const std::vector<double> &v)
+double g2(const double t, const vector<double> &v)
     {
         return v[0] + PARAMETER_a;
     }
 
 void do_lab_5()
     {
-        std::vector<std::vector<double>> X;
-        std::vector<double> grid;
+        vector<vector<double>> X;
+        vector<double> grid;
         double t_init = 0, T = 500;
-        std::vector<double> X_init = {0,0};
+        vector<double> X_init = {0, 0};
 
         odeRC4(X, grid, {g1, g2}, t_init, X_init, T);
 
-        std::ostringstream a_str;
+        ostringstream a_str;
         a_str << PARAMETER_a;
-        std::string path = "../Lab_5/data/FitzHugh_a_"+ a_str.str() +"_.txt";
+        string path = "../Lab_5/data/FitzHugh_a_" + a_str.str() + "_.txt";
 
-        write_vector_in_file(std::vector<double>{}, path, true); //Почистили файл перед записью
+        write_vector_in_file(vector<double>{}, path, true); //Почистили файл перед записью
         for (const auto &item : X)
         {
             write_vector_in_file(item, path, false);
@@ -83,54 +87,62 @@ void do_lab_5()
 
 
 /**Возвращает вектор значений (N-мерные точки) и сетку с шагом h на T */
-void odeRC4(std::vector<std::vector<double>> &X, std::vector<double> &grid,
-            const std::vector<std::function<double(double, std::vector<double>)>> &F,
-            const double t_init, const std::vector<double> &X_init,
+void odeRC4(vector<vector<double>> &X, vector<double> &grid,
+            const vector<function<double(double, vector<double>)>> &F,
+            const double t_init, const vector<double> &X_init,
             const double T, const double h)
     {
         double N = T / h;
         X.reserve(N + 1);
         grid.reserve(N + 1);
-        std::vector<double> k1 = {}, k2 = {}, k3 = {}, k4 = {};
+        vector<double> k1 = {}, k2 = {}, k3 = {}, k4 = {};
         k1.reserve(X_init.size() + 1);
         k2.reserve(X_init.size() + 1);
         k3.reserve(X_init.size() + 1);
         k4.reserve(X_init.size() + 1);
 
         grid.push_back(t_init);
-        std::vector<double> X_prev = X_init;
-
         X.push_back(X_init);
 
         for (int t = 1; t <= N; ++t)
         {
-            k1.clear();
-            k2.clear();
-            k3.clear();
-            k4.clear();
-
             grid.push_back(t_init + t * h);
+            vector<double> &X_prev = X[t - 1];
 
-            for (const auto &f : F)
-            {
-                k1.push_back(f(grid[t - 1], X_prev));
-            }
-            for (const auto &f : F)
-            {
-                k2.push_back(f(grid[t - 1] + h / 2, X_prev + h / 2 * k1));
-            }
-            for (const auto &f : F)
-            {
-                k3.push_back(f(grid[t - 1] + h / 2, X_prev + h / 2 * k2));
-            }
-            for (const auto &f : F)
-            {
-                k4.push_back(f(grid[t - 1] + h, X_prev + h * k3));
-            }
-
-
+            clear_K(k1, k2, k3, k4);
+            calc_K(grid, F, h, k1, k2, k3, k4, t, X_prev);
             X.push_back(X_prev + h / 6 * (k1 + 2 * k2 + 2 * k3 + k4));
-            X_prev = X.back();
+        }
+    }
+
+void clear_K(vector<double> &k1, vector<double> &k2, vector<double> &k3, vector<double> &k4)
+    {
+        k1.clear();
+        k2.clear();
+        k3.clear();
+        k4.clear();
+    }
+
+void
+calc_K(const vector<double> &grid, const vector<function<double(double, vector<double>)>> &F,
+       const double h, vector<double> &k1, vector<double> &k2, vector<double> &k3, vector<double> &k4,
+       int t, const vector<double> &X_prev)
+    {
+        for (const auto &f : F)
+        {
+            k1.push_back(f(grid[t - 1], X_prev));
+        }
+        for (const auto &f : F)
+        {
+            k2.push_back(f(grid[t - 1] + h / 2, X_prev + h / 2 * k1));
+        }
+        for (const auto &f : F)
+        {
+            k3.push_back(f(grid[t - 1] + h / 2, X_prev + h / 2 * k2));
+        }
+        for (const auto &f : F)
+        {
+            k4.push_back(f(grid[t - 1] + h, X_prev + h * k3));
         }
     }
 
