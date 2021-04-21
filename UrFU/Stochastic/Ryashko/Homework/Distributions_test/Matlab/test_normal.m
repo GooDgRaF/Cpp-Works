@@ -7,16 +7,16 @@ clear
 
 dir = "data_N";
 
-Exp = 0;
-Var = 1;
-
-figure();
-drawExp(dir, Exp);
-
-
-figure();
-drawVar(dir, Var);
+% Exp = 0;
+% Var = 1;
+% 
+% figure();
+% drawExp(dir, Exp);
+% 
+% 
+% figure();
+% drawVar(dir, Var);
 %%%%%%%%%%%%%%%%%%%
 
 figure();
-drawHist(dir);
+drawHist(dir, @(x) normal_density_function(x));

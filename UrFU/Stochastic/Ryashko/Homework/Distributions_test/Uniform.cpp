@@ -16,7 +16,7 @@ void test_uniform()
         vector<double> sample, variance, expectation;
         vector<int> array_N;
 
-        int N_max = 10e5;
+        int N_max = 10e6;
         int i_max = 4;
 
         string drill = "Distributions_test", source = "data_U", sam = "sample", e = "_expectation", v = "_variance",
@@ -53,7 +53,7 @@ void test_uniform()
 
         }
 
-        write_vector_in_file(array_N, path + "N_max="+ to_string(N_max) + ".txt", false);
+        write_vector_in_file(array_N, path + "N_max="+ to_string(N_max) + ".txt");
 
         std::cout << "test_uniform complete!" << std::endl;
     }

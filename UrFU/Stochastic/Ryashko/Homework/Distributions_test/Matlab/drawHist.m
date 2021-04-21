@@ -1,4 +1,4 @@
-function drawHist(data)
+function drawHist(data, f)
 
 i = 0;
 N_max = importdata("../" + data + "/sample_N_max.txt");
@@ -14,5 +14,9 @@ for k=length(N) - 3:length(N)
    nexttile;       
    histogram(S, 100,'Normalization','pdf');
    title("N = " + N(k));
+   
+   hold on;
+   fplot(@(x) f(x),[0,1],'Linewidth',2);
+
 end
 end

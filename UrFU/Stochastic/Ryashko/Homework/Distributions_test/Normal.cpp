@@ -53,7 +53,7 @@ void test_normal()
 
         }
 
-        write_vector_in_file(array_N, path + "N_max="+ to_string(N_max) + ".txt", false);
+        write_vector_in_file(array_N, path + "N_max="+ to_string(N_max) + ".txt");
 
         std::cout << "test_normal complete!" << std::endl;
     }
