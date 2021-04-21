@@ -12,4 +12,4 @@ drawVar();
 
 %%%%%%%%%%%%%%%%%%%
 
-%drawHist();
+drawHist();

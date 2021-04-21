@@ -1,11 +1,11 @@
 function drawVar()
 
-i_max = importdata("../data/sample_i_max.txt");
-N_max = importdata("../data/sample_N_max.txt");
-N = importdata("../data/sampleN_max=" + N_max + ".txt");
+i_max = importdata("../data_U/sample_i_max.txt");
+N_max = importdata("../data_U/sample_N_max.txt");
+N = importdata("../data_U/sampleN_max=" + N_max + ".txt");
 
 for i=0:i_max   
-    V = importdata("../data/sample_i" + i + "_variance.txt");
+    V = importdata("../data_U/sample_i" + i + "_variance.txt");
     %nexttile(t,i);    
     semilogx(N, V, 'Marker', 'o');
     hold on;
