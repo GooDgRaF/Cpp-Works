@@ -1,0 +1,20 @@
+function drawExp(t)
+
+N_max = 10e4;
+N = importdata("../data/sampleN_max=+N_max.txt");
+
+for i=1:4   
+    E = importdata("../data/sample_i" + i + "_expectation.txt");
+    nexttile(t,i);    
+    semilogx(E(1,:), E(2,:), 'Marker', 'o');
+    hold on;
+    x = [100 E_1(1,end)];
+    y = [0 0];
+    line(x,y,'Color','red','LineStyle','--')
+    title("a = " + a1);
+
+    
+end
+
+end
+
