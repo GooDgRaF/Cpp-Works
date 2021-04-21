@@ -5,9 +5,10 @@ clear
 %%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%
 
-dir = "data_U";
-Exp = 0.5;
-Var = 1/12;
+dir = "data_N";
+
+Exp = 0;
+Var = 1;
 
 figure();
 drawExp(dir, Exp);
@@ -15,7 +16,6 @@ drawExp(dir, Exp);
 
 figure();
 drawVar(dir, Var);
-
 %%%%%%%%%%%%%%%%%%%
 
 figure();

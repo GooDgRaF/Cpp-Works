@@ -15,6 +15,8 @@ public:
 
     double get_real_uniform(const double min = 0, const double max = 1);
 
+    double get_normal(const double E = 0, const double V = 1);
+
 private:
     Random_engine();
 
