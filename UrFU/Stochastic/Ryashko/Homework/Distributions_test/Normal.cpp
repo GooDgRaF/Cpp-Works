@@ -21,9 +21,9 @@ void test_normal()
 
         string drill = "Distributions_test", source = "data_N", sam = "sample", e = "_expectation", v = "_variance",
                 path = "../" + drill + "/" + source + "/"+ sam;
-
-        write_number_in_file(N_max, path + "_N_max.txt");
-        write_number_in_file(i_max - 1, path + "_i_max.txt");
+        
+        write_element_in_file(N_max, path + "_N_max.txt");
+        write_element_in_file(i_max - 1, path + "_i_max.txt");
         for (int i = 0; i < i_max; ++i)
         {
             sample.clear();
