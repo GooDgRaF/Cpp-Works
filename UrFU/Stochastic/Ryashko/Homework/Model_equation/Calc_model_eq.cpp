@@ -12,7 +12,7 @@
 #define a 1.1
 #define x_ 1.1
 #define x0 1.1
-#define eps 0.1
+#define eps 0.01
 
 using namespace std;
 
@@ -25,43 +25,44 @@ double Euler_Maruyama(const double h, const double x_prev,
 
 void calc_model_equation()
     {
-        double T = 10;
-        double h = 0.01;
-        double N = T/0.01;
-        
-        int i_max = 5;
-        
-        
-        vector<double> sample;
-        sample.reserve(ceil(N));
+        const double h = 0.01;
+        const int i_max = 5;
+        const int T_max = 1000;
         
         string drill = "Model_equation", source = "data", sam = "sample",
                 a_str = "_a=" + to_str(a), x0_str = "_x0=" + to_str(x0),
-                x_str = "_x_=" + to_str(x_), T_str = "_T=" + to_str(T),
+                x_str = "_x_=" + to_str(x_),
                 eps_str = "_eps=" + to_str(eps),
                 path = "../" + drill + "/" + source + "/" + sam;
-        string path_param = path + x0_str + a_str + x_str + T_str + eps_str + ".txt";
-        
-        write_vector_in_file(vector<double>{}, path_param, true);//Почистили файл
         
         write_element_in_file(i_max, path + "_i_max.txt");
-        write_element_in_file(T, path + "_T.txt");
         write_element_in_file(h, path + "_h.txt");
-        write_element_in_file(eps, path + "_eps.txt");
+        write_element_in_file(T_max, path + "_T_max.txt");
         
-        
-        
-        for (int i = 0; i < i_max; ++i)
+        for (int T = 1; T <= T_max; T*=10)
         {
-            sample.clear();
-            sample.push_back(x0);
+            const double N = T/0.01;
             
-            for (int n = 0; n < N; ++n)
+            vector<double> sample;
+            sample.reserve(ceil(N));
+            
+            string  T_str = "_T=" + to_str(T),
+            path_param = path + x0_str + a_str + x_str + T_str + eps_str + ".txt";
+            
+            write_vector_in_file(vector<double>{}, path_param, true);//Почистили файл
+            
+            for (int i = 0; i < i_max; ++i)
             {
-                auto x = sample.back();
-                sample.push_back(Euler_Maruyama(h, x, f, sigma));
+                sample.clear();
+                sample.push_back(x0);
+                
+                for (int n = 0; n < N; ++n)
+                {
+                    auto x = sample.back();
+                    sample.push_back(Euler_Maruyama(h, x, f, sigma));
+                }
+                write_vector_in_file(sample, path_param, false);
             }
-            write_vector_in_file(sample, path_param, false);
         }
         
         std::cout << "calc_model_equation complete!" << std::endl;
