@@ -4,14 +4,14 @@ close all
 
 %%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%
-a = 1.1;
-x0 = 1.1;
-x_ = 1.1;
-eps = 0.01;
+a = 3;
+x0 = 0;
+x_ = 2;
+eps = 1;
 %%%%%%%%%%%
 %%%%%%%%%%%
 h = importdata("../data/sample_h.txt");
-T_max = importdata("../data/sample_T_max.txt");
+%T_max = importdata("../data/sample_T_max.txt");
 i_max = importdata("../data/sample_i_max.txt");
 
 
