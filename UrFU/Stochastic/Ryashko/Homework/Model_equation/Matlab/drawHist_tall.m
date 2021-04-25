@@ -22,7 +22,7 @@ for i = 1:length(Times)
     figure()
     st = gather(tallSt(:,i));
     X = table2array(st);
-    histogram(X,'Normalization','pdf'); %100,
+    histogram(X,'Normalization','pdf');
     ax = gca;    
     ylim(ax, [0, 4.5]);
     xlim(ax, [-0.6, 3.5]); 
@@ -32,7 +32,6 @@ for i = 1:length(Times)
     fplot(@(x) density(x,eps,a,x_));
     
 set(gcf, 'Position', get(0,'Screensize'));
-%path = "assa.png";
 path = "Hist___i_max=" + i_max + "x0=" + x0 + "a=" + a + "x_=" + x_ + "eps=" + eps + "T=" + Times(i) + ".png";
 exportgraphics(gca, path);
 
