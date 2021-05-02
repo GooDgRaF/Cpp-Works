@@ -19,7 +19,8 @@ int main()
         //do_lab_2(random_generator);
         //do_lab_3(random_generator);
         //do_lab_4();
-        do_lab_5();
+        //do_lab_5_1();
+        do_lab_5_2();
 
 
 

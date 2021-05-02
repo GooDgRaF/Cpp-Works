@@ -11,6 +11,8 @@
 #include <algorithm>
 #include "Lab_5.h"
 #include "../Support/Write_functions.h"
+#include "../Support/Random_engine.h"
+#include "../Support/Calc_Expectation_Variance_Covariance.h"
 
 using namespace std;
 
@@ -52,6 +54,13 @@ vector<double> operator*(const T n, const vector<double> &a)
         return res;
     }
 
+vector<double> Maruyama_step(vector<double> &x, const vector<double> &additive_noise, const double h);
+
+void
+odeRC4_stochastic(vector<vector<double>> &X, vector<double> &array_N, const vector<function<double(double, vector<double>, vector<double>)>> &F, const vector<double> &Param, const vector<double> &additive_noise, const vector<double> &X_init, const double T, const double h = 0.01);
+
+void eigenvaluesM2(vector<double> eigenvalues, const vector<vector<double>> &M);
+
 // X[0] - x, X[1] - y, P[0] = a.
 double g1(const double t, const vector<double> &X, const vector<double> &P = {})
     {
@@ -63,7 +72,7 @@ double g2(const double t, const vector<double> &X, const vector<double> &P)
         return X[0] + P[0];
     }
 
-void do_lab_5()
+void do_lab_5_1()
     {
         double T = 50;
         double x0 = -2;
@@ -116,6 +125,61 @@ void do_lab_5()
         write_number_in_file(T, path + T_str + txt);
     }
 
+void do_lab_5_2()
+    {
+        double T = 10;
+        double h = 0.01;
+        double N = T/h;
+        vector<double> Eps = {0.01, 0.1};
+        vector<double> A = {1.01, 1.05, 1.1, 1.2, 1.3, 1.5};
+        vector<double> X0, Y0;
+        
+        vector<vector<double>> X;
+        vector<double> array_N;
+        
+        vector<vector<double>> cov = {{0, 0},
+                                      {0, 0}};
+        vector<double> eigenvalues = {0, 0};
+        
+        string path = "../Lab_5/data/STOCH_FitzHugh",
+                X0_str = "_X0", Y0_str = "_Y0", A_str = "_A", Eps_str = "_Eps", N_str = "_N=" + to_str(N),
+                array_N_str = "_arrayN", T_str = "_T", txt = "__.txt";
+        
+        for (const auto &a : A)
+        {
+            double x0 = -a;
+            double y0 = a*(a*a/3 - 1);
+            X0.push_back(x0);
+            Y0.push_back(ceil(y0*10000)/10000);
+            
+            for (const auto &eps : Eps)
+            {
+                string a_str = "_a=" + to_str(a), eps_str = "_eps=" + to_str(eps);
+                string equilibrium_str = "_equilibrium=" + to_str(x0) + "," + to_str(ceil(y0*10000)/10000),
+                        path_trajectory = path + equilibrium_str + a_str + eps_str;
+                vector<double> X_init = {x0, y0};
+                
+                odeRC4_stochastic(X, array_N, {g1, g2}, {a}, {eps, eps}, X_init, T);
+                
+                write_vector_in_file(vector < double > {}, path_trajectory + txt, true); //Почистили файл перед записью
+                for (const auto &trajectory : X)
+                {
+                    write_vector_in_file(trajectory, path_trajectory + txt, false);
+                }
+            }
+            
+        }
+        
+        write_vector_in_file(array_N, path + array_N_str + txt);
+        write_vector_in_file(Eps, path + Eps_str + txt);
+        write_vector_in_file(A, path + A_str + txt);
+        write_vector_in_file(X0, path + X0_str + txt);
+        write_vector_in_file(Y0, path + Y0_str + txt);
+        
+        write_number_in_file(T, path + T_str + txt);
+        
+    }
+
 
 /**Возвращает вектор значений (N-мерные точки) и массив с шагом h на T */
 void
@@ -146,6 +210,38 @@ odeRC4(vector<vector<double>> &X, vector<double> &array_N, const vector<function
             X.push_back(X_prev + h/6*(k1 + 2*k2 + 2*k3 + k4));
         }
     }
+
+void
+odeRC4_stochastic(vector<vector<double>> &X, vector<double> &array_N, const vector<function<double(double, vector<double>, vector<double>)>> &F, const vector<double> &Param, const vector<double> &additive_noise, const vector<double> &X_init, const double T, const double h)
+    {
+        assert(h > 0);
+        double N = T/h;
+        
+        X.clear();
+        array_N.clear();
+        
+        X.reserve(N + 1);
+        array_N.reserve(N + 1);
+        
+        vector<double> k1 = {}, k2 = {}, k3 = {}, k4 = {};
+        reserve_K(X_init, k1, k2, k3, k4);
+        
+        array_N.push_back(0);
+        X.push_back(X_init);
+        
+        for (int t = 1; t <= N; ++t)
+        {
+            array_N.push_back(t*h);
+            vector<double> &X_prev = X[t - 1];
+            
+            clear_K(k1, k2, k3, k4);
+            calc_K(array_N, F, Param, h, t, k1, k2, k3, k4, X_prev);
+            
+            auto determ_X = X_prev + h/6*(k1 + 2*k2 + 2*k3 + k4);
+            X.push_back(Maruyama_step(determ_X, additive_noise, h));
+        }
+    }
+
 
 void
 reserve_K(const vector<double> &X_init, vector<double> &k1, vector<double> &k2, vector<double> &k3, vector<double> &k4)
@@ -185,4 +281,17 @@ calc_k(const vector<function<double(double, vector<double>, vector<double>)>> &F
         }
     }
 
+vector<double> Maruyama_step(vector<double> &x, const vector<double> &additive_noise, const double h)
+    {
+        double ksi = randomEngine.get_normal();
+        return x + ksi*sqrt(h)*additive_noise;
+    }
 
+void eigenvaluesM2(vector<double> eigenvalues, const vector<vector<double>> &M)
+    {
+        auto a = M[0][0], b = M[0][1], c = M[1][0], d = M[1][1];
+        auto det = a*d - b*c;
+        auto sqrt_D = sqrt((a + d)*(a + d) - 4*det);
+        eigenvalues[0] = (a + d + sqrt_D)/2;
+        eigenvalues[1] = (a + d - sqrt_D)/2;
+    }

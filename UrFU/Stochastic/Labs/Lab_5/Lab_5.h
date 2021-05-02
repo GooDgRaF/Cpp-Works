@@ -5,6 +5,7 @@
 #ifndef LABA1_LAB_5_H
 #define LABA1_LAB_5_H
 
-void do_lab_5();
+void do_lab_5_1();
 
+void do_lab_5_2();
 #endif //LABA1_LAB_5_H

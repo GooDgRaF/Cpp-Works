@@ -29,7 +29,7 @@ void write_vector_in_file(const std::vector<T> &v, const std::string &path, cons
         {
             for (auto item : v)
             {
-                out << std::setprecision(9) << item << " ";
+                out << std::setprecision(5) << item << " ";
             }
             out << '\n';
         }
