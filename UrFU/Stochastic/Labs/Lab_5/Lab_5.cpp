@@ -127,19 +127,15 @@ void do_lab_5_1()
 
 void do_lab_5_2()
     {
-        double T = 10;
+        double T = 1000;
         double h = 0.01;
         double N = T/h;
-        vector<double> Eps = {0.01, 0.1};
-        vector<double> A = {1.01, 1.05, 1.1, 1.2, 1.3, 1.5};
+        vector<double> Eps = {0.01, 0.1, 1};
+        vector<double> A = {1.01, 1.05, 1.1, 1.2, 1.3, 1.5, 2, 3};
         vector<double> X0, Y0;
         
         vector<vector<double>> X;
         vector<double> array_N;
-        
-        vector<vector<double>> cov = {{0, 0},
-                                      {0, 0}};
-        vector<double> eigenvalues = {0, 0};
         
         string path = "../Lab_5/data/STOCH_FitzHugh",
                 X0_str = "_X0", Y0_str = "_Y0", A_str = "_A", Eps_str = "_Eps", N_str = "_N=" + to_str(N),
@@ -164,7 +160,7 @@ void do_lab_5_2()
                 write_vector_in_file(vector < double > {}, path_trajectory + txt, true); //Почистили файл перед записью
                 for (const auto &trajectory : X)
                 {
-                    write_vector_in_file(trajectory, path_trajectory + txt, false);
+                    write_vector_in_file(trajectory, path_trajectory + T_str + "=" +to_str(T) + txt, false);
                 }
             }
             

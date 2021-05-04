@@ -13,12 +13,12 @@ A = importdata("../data/STOCH_FitzHugh_A__.txt");
 Eps = importdata("../data/STOCH_FitzHugh_Eps__.txt");
 %%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%
-
+for t=1:length(T)
 for i=1:length(A)
     figure()
    for k = 1:length(Eps)
       hold on
-      D = importdata("../data/STOCH_FitzHugh_equilibrium=" + X0(i)+ "," + Y0(i)+ "_a=" + A(i) + "_eps=" + Eps(k) +"__.txt");
+      D = importdata("../data/STOCH_FitzHugh_equilibrium=" + X0(i)+ "," + Y0(i)+ "_a=" + A(i) + "_eps=" + Eps(k) + "_T="+ T(t) +"__.txt");
       plot(D(:,1),D(:,2),'-o','MarkerSize',2, 'LineStyle', 'none');        
    end    
    a = plot(-A(i), A(i)*(1/3*A(i)*A(i) - 1), '.','Color','[0 0 0]');
@@ -34,11 +34,12 @@ if (0 < A(i) && A(i) < sqrt(0.37))
     stringN = ". Неустойчивый узел";end
 if (A(i) == 1)    
     stringN = ". Центр";end
-title("a = " + A(i) + stringN);
+title("a = " + A(i) + stringN + "    T=" + T(t) + "  eps= 0.1 и 1");
 xlabel("x");ylabel("y");
 
 set(gcf, 'Position', get(0,'Screensize'));
-path = i+")STOCH_PHASE___a=" + A(i) + "--T=" + T + ".png";
-exportgraphics(gca, path);
-close;
+path = t+"."+i+"."+k+")STOCH_PHASE___a=" + A(i) + "--T=" + T(t)+ ".png";
+ exportgraphics(gca, path);
+ close;
+end
 end
