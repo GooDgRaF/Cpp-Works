@@ -127,10 +127,10 @@ void do_lab_5_1()
 
 void do_lab_5_2()
     {
-        double T = 1000;
+        double T = 10;
         double h = 0.01;
         double N = T/h;
-        vector<double> Eps = {0.01, 0.1, 1};
+        vector<double> Eps = {0.001};
         vector<double> A = {1.01, 1.05, 1.1, 1.2, 1.3, 1.5, 2, 3};
         vector<double> X0, Y0;
         
@@ -157,7 +157,7 @@ void do_lab_5_2()
                 
                 odeRC4_stochastic(X, array_N, {g1, g2}, {a}, {eps, eps}, X_init, T);
                 
-                write_vector_in_file(vector < double > {}, path_trajectory + txt, true); //Почистили файл перед записью
+                write_vector_in_file(vector < double > {}, path_trajectory + T_str + "=" +to_str(T) + txt, true); //Почистили файл перед записью
                 for (const auto &trajectory : X)
                 {
                     write_vector_in_file(trajectory, path_trajectory + T_str + "=" +to_str(T) + txt, false);
@@ -165,7 +165,6 @@ void do_lab_5_2()
             }
             
         }
-        
         write_vector_in_file(array_N, path + array_N_str + txt);
         write_vector_in_file(Eps, path + Eps_str + txt);
         write_vector_in_file(A, path + A_str + txt);
