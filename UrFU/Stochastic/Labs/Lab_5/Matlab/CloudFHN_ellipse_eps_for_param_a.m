@@ -19,10 +19,13 @@ k = sqrt(-log(1-p));
 %%%%%%%%%%%%%%%
 for t=1:length(T)
 for i=1:length(A)
-    figure()
-   x_ = -A(i);
+    x_ = -A(i);
    y_ = A(i)*(1/3*A(i)*A(i) - 1);
    for m = 1:length(Eps)
+      figure()
+      ax = gca;
+      ax.XLim = [-2.5 2];
+      ax.YLim = [-1 2];
       hold on
       D = importdata("../data/STOCH_FitzHugh_equilibrium=" + X0(i)+ "," + Y0(i)+ "_a=" + A(i) + "_eps=" + Eps(m) + "_T="+ T(t) +"__.txt");
       plot(D(:,1),D(:,2),'-o','MarkerSize',2, 'LineStyle', 'none'); 
@@ -44,13 +47,14 @@ for i=1:length(A)
       x_phi = @(phi) x_ + (z1(phi)*v2(2) - z2(phi)*v1(2))/detV;
       y_phi = @(phi) y_ + (z2(phi)*v1(1) - z1(phi)*v2(1))/detV;
       fplot(x_phi, y_phi, [0, 2*pi],'--r','LineWidth',2);
-   end
-   a = plot(x_, y_, '.','Color','[0 0 0]');
-   a.MarkerSize = 20;
+      
+      
+      a = plot(x_, y_, '.','Color','[0 0 0]');
+      a.MarkerSize = 20;
   
   
    
-   if A(i) > 1
+if A(i) > 1
     stringN = ". Устойчивый узел"; end
 if (1 < A(i) && A(i) < sqrt(1.63))
     stringN = ". Устойчивый фокус";end
@@ -62,12 +66,13 @@ if (A(i) == 1)
     stringN = ". Центр";end
 title("a = " + A(i) + stringN + "    T=" + T(t) + "  eps=" + Eps(m) +...
         "  p=" + p);
-xlabel("x");ylabel("y");
+xlabel("x");ylabel("y");  
 
-% set(gcf, 'Position', get(0,'Screensize'));
-% path = t +"."+i+"."+m+")STOCH_PHASE_ELLIPSE__a=" + A(i) + "--T=" + T(t)+ ...
-%     "  eps=" + Eps(m) + ".png";
-%  exportgraphics(gca, path);
-% close;
+set(gcf, 'Position', get(0,'Screensize'));
+path = i+"."+m+")STOCH_PHASE_ELLIPSE__a=" + A(i) + "--T=" + T(t)+ ...
+    "  eps=" + Eps(m) + ".png";
+ exportgraphics(gca, path);
+close;
+    end
 end
 end
