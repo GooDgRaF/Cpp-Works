@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE experiments>
-<experiments>
-    <experiment name = "qSort">
-
-    <nodes name = "Arithmetic Progression"
+<experiment name = "qSort">
+    <node_a name = "Arithmetic Progression"
     minElement = "0" maxElement = "20" startLength = "1000" diff = "100" maxLength = "3000" repeat = "15">
-    </nodes>
+    </node_a>
 
-    <nodes name = "Geometric Progression"
+    <node_g name = "Geometric Progression"
     minElement = "0" maxElement = "20" startLength = "10" Znamen = "1.5" maxLength = "10000" repeat = "15">
-    </nodes>
+    </node_g>
 
-    </experiment>
-</experiments>
+</experiment>

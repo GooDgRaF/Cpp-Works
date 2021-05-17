@@ -50,6 +50,8 @@ void Strings_holder::qSort(vector<string> &v, vector<string>::iterator begin, ve
         {
             return;
         }
+        number_of_operations = 0;
+        
         auto first = begin;
         auto last = end;
         size_t sup_element = (begin->size() + end->size())/2;
@@ -58,10 +60,12 @@ void Strings_holder::qSort(vector<string> &v, vector<string>::iterator begin, ve
         {
             while (first->size() < sup_element)
             {
+                number_of_operations++;
                 first++;
             }
             while (last->size() > sup_element)
             {
+                number_of_operations++;
                 last--;
             }
             

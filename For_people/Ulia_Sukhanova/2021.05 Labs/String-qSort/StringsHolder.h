@@ -11,7 +11,9 @@
 struct Strings_holder
 {
     std::vector<std::string> strings_to_sort{};
-    int k{};
+    int k{0};
+    
+    int number_of_operations{0};
     
     void get_size();
     

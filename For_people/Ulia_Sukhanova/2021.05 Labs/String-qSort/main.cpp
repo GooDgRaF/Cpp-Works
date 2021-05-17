@@ -5,7 +5,7 @@
 #include "Menu.h"
 #include "StringsHolder.h"
 #include "Test.h"
-
+#include "Mass_task.h"
 
 using namespace std;
 
@@ -31,8 +31,10 @@ int main()
                     sh.show_sorted();
                     break;
                 case Menu::XML_TEST:
-                    
+                {
                     break;
+                }
+                
                 case Menu::TEST:
                     
                     Menu::print_test_start();
