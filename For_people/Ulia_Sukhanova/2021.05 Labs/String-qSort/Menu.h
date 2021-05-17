@@ -14,6 +14,7 @@ struct Menu
     {
         USER_STRINGS = 1,
         XML_TEST = 2,
+        TEST = 3,
         EXIT = 0
     };
     
@@ -27,6 +28,8 @@ struct Menu
     static void print_goodbye();
     
     static void print_incorrect_input();
+    
+    static void print_test_start();
 };
 
 #endif //STRING_QSORT_MENU_H

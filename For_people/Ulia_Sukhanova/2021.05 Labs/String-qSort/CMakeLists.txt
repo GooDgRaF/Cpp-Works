@@ -3,4 +3,4 @@ project(String_qSort)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(String_qSort main.cpp Menu.cpp Menu.h)
+add_executable(String_qSort main.cpp Menu.cpp Menu.h StringsHolder.cpp StringsHolder.h Test.cpp Test.h)
