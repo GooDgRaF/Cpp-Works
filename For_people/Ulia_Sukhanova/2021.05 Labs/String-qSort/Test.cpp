@@ -3,17 +3,17 @@
 //
 
 #include "Test.h"
-#include "StringsHolder.h"
 #include <vector>
 #include <string>
 #include <cassert>
 #include <iostream>
+#include "QSort.h"
 
 using namespace std;
 
 void test_qSort()
     {
-        vector<string>
+        v_str
                 zero_el{},
                 one_el{"1"},
                 two_el_eq{"1", "1"},
@@ -21,7 +21,7 @@ void test_qSort()
                 two_el_gr{"32", "1"},
                 five_el{"54321", "321", "4321", "1", "21"};
         
-        vector<string>
+        v_str
                 answ_zero_el{},
                 answ_one_el{"1"},
                 answ_two_el_eq{"1", "1"},
@@ -29,14 +29,14 @@ void test_qSort()
                 answ_two_el_gr{"1", "32"},
                 answ_five_el{"1", "21", "321", "4321", "54321"};
         
-        Strings_holder sh;
+        qSort(zero_el);
+        qSort(one_el);
+        qSort(two_el_eq);
+        qSort(two_el_less);
+        qSort(two_el_gr);
+        qSort(five_el);
         
-        sh.qSort(zero_el, zero_el.begin(), zero_el.end() - 1);
-        sh.qSort(one_el, one_el.begin(), one_el.end() - 1);
-        sh.qSort(two_el_eq, two_el_eq.begin(), two_el_eq.end() - 1);
-        sh.qSort(two_el_less, two_el_less.begin(), two_el_less.end() - 1);
-        sh.qSort(two_el_gr, two_el_gr.begin(), two_el_gr.end() - 1);
-        sh.qSort(five_el, five_el.begin(), five_el.end() - 1);
+        
         
         
         assert(zero_el == answ_zero_el);

@@ -3,9 +3,9 @@
 #include <vector>
 #include <string>
 #include "Menu.h"
-#include "StringsHolder.h"
 #include "Test.h"
 #include "Mass_task.h"
+#include "QSort.h"
 
 using namespace std;
 
@@ -13,7 +13,6 @@ using namespace std;
 int main()
     {
         Menu menu{};
-        Strings_holder sh{};
         while (true)
         {
             menu.ask_next_action();
@@ -22,14 +21,14 @@ int main()
             switch (menu.user_choice - '0') //ch --> int
             {
                 case Menu::USER_STRINGS:
-                    
-                    Menu::print_enter_number_of_rows();
-                    sh.get_size();
-                    Menu::print_enter_strings();
-                    sh.get_strings();
-                    sh.qSort(sh.strings_to_sort, sh.strings_to_sort.begin(), sh.strings_to_sort.end() - 1);
-                    sh.show_sorted();
+                {
+                    size_t row_size = Menu::ask_row_size();
+                    v_str v{row_size};
+                    Menu::ask_strings(v, row_size);
+                    qSort(v);
+                    show_v_str(v);
                     break;
+                }
                 case Menu::XML_TEST:
                 {
                     break;
@@ -44,7 +43,6 @@ int main()
                     return 0;
                 default:Menu::print_incorrect_input();
                     break;
-                
             }
         }
     }

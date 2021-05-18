@@ -5,6 +5,9 @@
 #ifndef STRING_QSORT_MENU_H
 #define STRING_QSORT_MENU_H
 
+#include <vector>
+#include <string>
+using v_str = std::vector<std::string>;
 
 struct Menu
 {
@@ -20,9 +23,14 @@ struct Menu
     
     void ask_next_action();
     
+    static size_t ask_row_size();
+    
+    static void ask_strings(v_str &v, size_t row_size);
+    
     void while_incorrect();
     
     static void print_enter_strings();
+    
     static void print_enter_number_of_rows();
     
     static void print_goodbye();

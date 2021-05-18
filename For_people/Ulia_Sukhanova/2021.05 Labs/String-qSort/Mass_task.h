@@ -6,6 +6,8 @@
 #define STRING_QSORT_MASS_TASK_H
 
 #include <string>
+#include <vector>
+#include "QSort.h"
 
 struct Progression
 {
@@ -32,11 +34,21 @@ struct Experiment
     std::string name;
     Arithmetic_progression arith;
     Geometric_progression geom;
+
+    std::vector<v_str> a_mt;//mass task
+    std::vector<v_str> g_mt;
+private:
+    void fill_mt();
+
+    void fill_a_mt();
 };
 
 Experiment read_from_XML(const std::string &xml_path);
 
 void do_mass_task();
+
+
+
 
 
 #endif //STRING_QSORT_MASS_TASK_H

@@ -19,11 +19,40 @@ void Menu::ask_next_action()
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     }
 
+size_t Menu::ask_row_size()
+    {
+        print_enter_number_of_rows();
+        string row_size_user{};
+        getline(cin, row_size_user);
+        if (row_size_user.find_first_not_of("0123456789") != string::npos)
+        {
+            while (row_size_user.find_first_not_of("0123456789") != string::npos)
+            {
+                print_incorrect_input();
+                print_enter_number_of_rows();
+                getline(cin, row_size_user);
+            }
+        }
+        return stoul(row_size_user);
+    }
+
+void Menu::ask_strings(v_str &v, size_t row_size)
+    {
+        print_enter_strings();
+        v.clear();
+        for (int i = 0; i < row_size; i++)
+        {
+            string s{};
+            getline(cin, s);
+            v.push_back(s);
+        }
+    }
+
 void Menu::while_incorrect()
     {
         while (!isdigit(user_choice))
         {
-            Menu::print_incorrect_input();
+            print_incorrect_input();
             ask_next_action();
         }
     }

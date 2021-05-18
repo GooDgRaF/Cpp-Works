@@ -8,7 +8,7 @@
 void do_mass_task()
     { //TODO Сделать массовую задачу
         Experiment mass_qSort = read_from_XML("../Mass_task.xml");
-        
+
     }
 
 Experiment read_from_XML(const std::string &xml_path)
@@ -16,14 +16,14 @@ Experiment read_from_XML(const std::string &xml_path)
         TiXmlDocument doc(xml_path.c_str());
         if(!doc.LoadFile())
             exit(-1);
-       
-        
+
+
         TiXmlElement *experiment_type = doc.FirstChildElement("experiment");
         Experiment experiment;
         experiment.name = experiment_type->Attribute("name");
-        
+
         TiXmlElement *exp = experiment_type->FirstChildElement("node_a");
-        
+
         experiment.arith =
         {
                 exp->Attribute("name"),
@@ -31,9 +31,9 @@ Experiment read_from_XML(const std::string &xml_path)
                 atoi(exp->Attribute("startLength")), atoi(exp->Attribute("maxLength")),
                 atoi(exp->Attribute("repeat")), atoi(exp->Attribute("diff"))
         };
-        
+
         exp = exp->NextSiblingElement("node_g");
-        
+
         experiment.geom =
                 {
                         exp->Attribute("name"),
@@ -43,3 +43,19 @@ Experiment read_from_XML(const std::string &xml_path)
                 };
         return experiment;
     }
+
+//void Experiment::fill_mt()
+//    {
+//        fill_a_mt();
+//        fill_g_sh();
+//    }
+//
+//void Experiment::fill_a_mt()
+//    {
+//        a_mt.resize((arith.maxElem - arith.minElem)/arith.diff);
+//        for (auto &sh : a_mt)
+//        {
+//            sh.
+//        }
+//
+//    }
