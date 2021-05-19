@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<experiment name = "qSort_main">
-    <node_a name = "Arithmetic_Progression"
-    minElement = "0" maxElement = "30" startLength = "1000" diff = "100" maxLength = "3000" repeat = "15">
-    </node_a>
-</experiment>

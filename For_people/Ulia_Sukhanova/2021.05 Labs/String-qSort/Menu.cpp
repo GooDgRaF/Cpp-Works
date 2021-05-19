@@ -12,7 +12,7 @@ void Menu::ask_next_action()
     {
         cout << "Choose the next action: " << endl;
         cout << "[1] Sorting the strings entered by the user. " << endl;
-        cout << "[2] Start XML-test. " << endl;
+        cout << "[2] Get data based on XML-file. " << endl;
         cout << "[3] Start in-program tests." << endl;
         cout << "[0] Exit. " << endl;
         cin >> user_choice;

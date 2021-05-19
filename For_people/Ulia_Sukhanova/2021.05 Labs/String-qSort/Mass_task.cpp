@@ -100,7 +100,7 @@ void Experiment::sort_mt()
 
 void Experiment::write()
     {
-        std::ofstream out("../Mass_task_res.txt");
+        std::ofstream out("Mass_task_res.txt");
         if (out.fail())
         {
             std::cerr << "Can't reach or open file: ../Mass_task_res.txt: " << std::endl;
@@ -118,7 +118,7 @@ void Experiment::write()
 
 void do_mass_task()
     {
-        Experiment exp = read_from_XML("../Mass_task.xml");
+        Experiment exp = read_from_XML("Mass_task.xml");
         
         exp.fill_mt();
         exp.sort_mt();
