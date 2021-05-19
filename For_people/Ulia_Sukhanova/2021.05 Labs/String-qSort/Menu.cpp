@@ -82,3 +82,9 @@ void Menu::print_test_start()
     {
         cout << "Tests started " << endl;
     }
+
+void Menu::print_XML_start()
+    {
+        cout << "XML computation started " << endl;
+        
+    }

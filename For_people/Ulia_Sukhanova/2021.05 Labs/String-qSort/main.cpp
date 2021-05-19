@@ -2,6 +2,7 @@
 #include <cctype>
 #include <vector>
 #include <string>
+#include <ctime>
 #include "Menu.h"
 #include "Test.h"
 #include "Mass_task.h"
@@ -31,6 +32,8 @@ int main()
                 }
                 case Menu::XML_TEST:
                 {
+                    Menu::print_XML_start();
+                    do_mass_task();
                     break;
                 }
                 

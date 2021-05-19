@@ -38,6 +38,8 @@ struct Menu
     static void print_incorrect_input();
     
     static void print_test_start();
+    
+    static void print_XML_start();
 };
 
 #endif //STRING_QSORT_MENU_H

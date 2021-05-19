@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <experiment name = "qSort_main">
-    <node_a name = "Arithmetic Progression"
-    minElement = "0" maxElement = "20" startLength = "1000" diff = "100" maxLength = "3000" repeat = "15">
+    <node_a name = "Arithmetic_Progression"
+    minElement = "0" maxElement = "30" startLength = "1000" diff = "100" maxLength = "3000" repeat = "15">
     </node_a>
-
-    <node_g name = "Geometric Progression"
-    minElement = "0" maxElement = "20" startLength = "10" Znamen = "1.5" maxLength = "10000" repeat = "15">
-    </node_g>
 </experiment>
