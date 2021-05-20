@@ -10,9 +10,9 @@
 
 using namespace std;
 
-Experiment read_from_XML(const std::string &xml_path)
+Experiment read_from_XML()
     {
-        TiXmlDocument doc(xml_path.c_str());
+        TiXmlDocument doc("Mass_task.xml");
         if (!doc.LoadFile())
             exit(-1);
         
@@ -118,7 +118,7 @@ void Experiment::write()
 
 void do_mass_task()
     {
-        Experiment exp = read_from_XML("Mass_task.xml");
+        Experiment exp = read_from_XML();
         
         exp.fill_mt();
         exp.sort_mt();

@@ -55,21 +55,13 @@ qSort_main(v_str &v, v_str::iterator begin, v_str::iterator end, size_t &number_
                 *last = tmp;
                 first++;
                 last--;
+                number_of_operations += 3;
             }
         }
         if (begin < last) qSort_main(v, begin, last, number_of_operations);
         if (end > first) qSort_main(v, first, end, number_of_operations);
     }
 
-void show_v_str(v_str &v)
-    {
-        cout << "Sorted strings: " << endl;
-        for (const auto &el : v)
-        {
-            cout << el << endl;
-        }
-        cout << endl << endl;
-    }
 
 size_t qSort(v_str &v)
     {
@@ -77,5 +69,4 @@ size_t qSort(v_str &v)
         size_t num_of_op{0};
         qSort_main(v, v.begin(), v.end(), num_of_op);
         return num_of_op;
-        
     }

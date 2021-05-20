@@ -4,7 +4,6 @@
 
 #include "Test.h"
 #include <vector>
-#include <string>
 #include <cassert>
 #include <iostream>
 #include "QSort.h"

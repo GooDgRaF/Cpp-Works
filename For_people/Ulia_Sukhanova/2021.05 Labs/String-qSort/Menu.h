@@ -7,12 +7,11 @@
 
 #include <vector>
 #include <string>
+
 using v_str = std::vector<std::string>;
 
-struct Menu
+namespace Menu
 {
-    char user_choice{-1};
-    
     enum menu_interface
     {
         USER_STRINGS = 1,
@@ -21,25 +20,27 @@ struct Menu
         EXIT = 0
     };
     
-    void ask_next_action();
+    size_t ask_next_action();
     
-    static size_t ask_row_size();
+    size_t ask_row_size();
     
-    static void ask_strings(v_str &v, size_t row_size);
+    void ask_strings(v_str &v, size_t row_size);
     
-    void while_incorrect();
+    void print_enter_strings();
     
-    static void print_enter_strings();
+    void print_enter_number_of_rows();
     
-    static void print_enter_number_of_rows();
+    void print_goodbye();
     
-    static void print_goodbye();
+    void print_incorrect_input();
     
-    static void print_incorrect_input();
+    void print_test_start();
     
-    static void print_test_start();
+    void print_XML_start();
     
-    static void print_XML_start();
-};
-
+    void print_sort_str();
+    
+    void show_v_str(v_str &v);
+    
+}
 #endif //STRING_QSORT_MENU_H
