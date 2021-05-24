@@ -22,7 +22,6 @@ struct SLEquation
 
 void read_XML(matrix_double &mat, matrix_double &matRedheffer, SLEquation &sleq);
 
-
 matrix_double create_mRedheffer(size_t size);
 
 matrix_double create_matrix_from_string(size_t row_size, size_t column_size, const std::string &str);

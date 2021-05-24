@@ -31,18 +31,6 @@ size_t Menu::ask_next_action()
         return user_choice - '0';
     }
 
-void Menu::print_matrix(const matrix_double &mat)
-    {
-        for (const auto &row: mat)
-        {
-            for (auto el: row)
-            {
-                cout << el << " ";
-            }
-            cout << endl;
-        }
-    }
-
 void Menu::print_goodbye()
     {
         cout << "Have a nice day!" << endl;
@@ -58,19 +46,19 @@ void Menu::print_test_start()
         cout << "The tests have started:" << endl;
     }
 
-void Menu::print_det_value(const double d)
+void Menu::print_det_value(double d)
     {
         cout << "The value of the determinant = " << d << endl;
     }
 
-void Menu::print_Redheffer_det_value(const double d, const size_t det_size)
+void Menu::print_Redheffer_det_value(double d, size_t det_size)
     {
         cout << "The value of the Redheffer determinant = " << d << endl;
         cout << "The theoretical value = " << value_det_Redheffer[det_size - 1] << endl;
         
     }
 
-void Menu::print_sle_solution(const vector<double> &solution)
+void Menu::print_sle_solution(vector<double> &solution)
     {
         if (solution.empty())
         {
