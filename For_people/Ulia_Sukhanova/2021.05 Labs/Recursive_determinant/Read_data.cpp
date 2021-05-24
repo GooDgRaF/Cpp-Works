@@ -5,11 +5,11 @@
 #include <sstream>
 #include <iostream>
 #include "TinyXML/tinyxml.h"
-#include "Read_and_prepare_data.h"
+#include "Read_data.h"
 
 using namespace std;
 
-void read_XML()
+void read_XML(matrix_double &mat, matrix_double &matRedheffer, SLEquation &sleq)
     {
         TiXmlDocument doc("Det.xml");
         if (!doc.LoadFile())
@@ -23,7 +23,7 @@ void read_XML()
             
             size_t matrix_size = stoi({ptr_matrix->Attribute("size")});
             string line_matrix = ptr_matrix->GetText();
-            auto KUDATO = create_matrix_from_string(matrix_size, matrix_size, line_matrix);
+            mat = create_matrix_from_string(matrix_size, matrix_size, line_matrix);
         }
 
 
@@ -33,7 +33,7 @@ void read_XML()
             TiXmlElement *ptr_Redheffer = ptr_data_lab_4->FirstChildElement("Redheffer");
             
             size_t Redheffer_size = stoi({ptr_Redheffer->Attribute("size")});
-            auto KUDATOTO = create_mRedheffer(Redheffer_size);
+            matRedheffer = create_mRedheffer(Redheffer_size);
         }
 
 //        //////////////////////// Cramer
@@ -46,10 +46,10 @@ void read_XML()
             TiXmlElement *ptr_right_column = ptr_Cramer->FirstChildElement("right_column");
             
             string line_coefficient_matrix = ptr_coefficient_matrix->GetText();
-            string line_right_column_transpose = ptr_right_column->GetText();
+            string line_right_column = ptr_right_column->GetText();
             
-            auto AKLAKKLAKLA = create_matrix_from_string(matrix_size, matrix_size, line_coefficient_matrix);
-            auto KHASGN = create_matrix_from_string(matrix_size, 1, line_right_column_transpose);
+            sleq.coefficientMatrix = create_matrix_from_string(matrix_size, matrix_size, line_coefficient_matrix);
+            sleq.right_column = create_matrix_from_string(1, matrix_size, line_right_column)[0];
         }
     }
 
@@ -101,18 +101,7 @@ matrix_double create_mRedheffer(size_t size)
                 }
             }
         }
-        show_matrix(mRedheffer);
         return mRedheffer;
     }
 
-void show_matrix(matrix_double &m)
-    {
-        for (const auto &row: m)
-        {
-            for (auto el: row)
-            {
-                cout << el << " ";
-            }
-            cout << endl;
-        }
-    }
+
